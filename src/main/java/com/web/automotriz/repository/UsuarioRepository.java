@@ -3,8 +3,9 @@ package com.web.automotriz.repository;
 
 import com.web.automotriz.exceptions.EtAuthException;
 import com.web.automotriz.model.Usuario;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -21,12 +22,14 @@ public class UsuarioRepository {
     private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM INVENTARIOAUTOMOTRIZ.USUARIO WHERE EMAIL = ?";
     private static final String SQL_FIND_BY_ID = "SELECT IDUSUARIO, NOMBRE, EDAD, EMAIL, PASSWORD " +
             "FROM INVENTARIOAUTOMOTRIZ.USUARIO WHERE IDUSUARIO = ?";
+    private static final String SQL_FIND_BY_EMAIL = "SELECT IDUSUARIO, NOMBRE, EDAD, EMAIL, PASSWORD " +
+            "FROM INVENTARIOAUTOMOTRIZ.USUARIO WHERE EMAIL = ?";
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     public Integer create(String nombre, String edad, String email, String password) throws EtAuthException {
-
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
@@ -34,7 +37,7 @@ public class UsuarioRepository {
                 ps.setString(1, nombre);
                 ps.setString(2, edad);
                 ps.setString(3, email);
-                ps.setString(4, password);
+                ps.setString(4, hashedPassword);
                 return ps;
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("IDUSUARIO");
@@ -45,10 +48,14 @@ public class UsuarioRepository {
     }
 
     public Usuario findByEmailAndPassword(String email, String password) throws EtAuthException {
-
-
-        return null;
-
+        try {
+            Usuario usuario = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, new Object[]{email}, usuarioRowMapper);
+            if(!BCrypt.checkpw(password, usuario.getPassword()))
+                throw new EtAuthException("Password o email invalidos");
+            return usuario;
+        }catch(EmptyResultDataAccessException e){
+            throw new EtAuthException("Password o email invalidos");
+        }
     }
 
     public Integer getCountByEmail(String email) {
