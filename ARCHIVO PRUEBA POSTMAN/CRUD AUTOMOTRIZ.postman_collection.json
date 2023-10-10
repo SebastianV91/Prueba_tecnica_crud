@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "4a6aaac5-8cad-481e-8ed1-7ecae31bd560",
+		"name": "CRUD AUTOMOTRIZ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Insertar registro de usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"David\",\r\n    \"edad\":\"30\",\r\n    \"email\":\"david@testmail.com\",\r\n    \"password\":\"test123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8084/api/usuario/registro",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"usuario",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"david@testmail.com\",\r\n    \"password\":\"test123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8084/api/usuario/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"usuario",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guardar mercancia",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTY5MDg3NjEsImV4cCI6MTY5NjkxNTk2MSwiaWR1c3VhcmlvIjoxOCwiZW1haWwiOiJkYXZpZEB0ZXN0bWFpbC5jb20iLCJub21icmUiOiJEYXZpZCIsImVkYWQiOiIzMCJ9.m5QcTqrBsck7J4tHzgMqloswhbJuqDkG6gUBF900jvA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre_producto\":\"Retrovisores\",\r\n    \"cantidad\":2,\r\n    \"fecha_ingreso\":\"2023-10-09\",\r\n    \"usuarioid\":5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8084/api/mercancia/guardarMercancia",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"mercancia",
+						"guardarMercancia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar mercancia",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTY5MDg3NjEsImV4cCI6MTY5NjkxNTk2MSwiaWR1c3VhcmlvIjoxOCwiZW1haWwiOiJkYXZpZEB0ZXN0bWFpbC5jb20iLCJub21icmUiOiJEYXZpZCIsImVkYWQiOiIzMCJ9.m5QcTqrBsck7J4tHzgMqloswhbJuqDkG6gUBF900jvA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre_producto\":\"Retrovisores\",\r\n    \"cantidad\":2,\r\n    \"fecha_ingreso\":\"2023-10-07\",\r\n    \"usuarioidmodificacion\":5,\r\n    \"idmercancia\":30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8084/api/mercancia/actualizarMercancia",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"mercancia",
+						"actualizarMercancia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar mercancia",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTY5MDg3NjEsImV4cCI6MTY5NjkxNTk2MSwiaWR1c3VhcmlvIjoxOCwiZW1haWwiOiJkYXZpZEB0ZXN0bWFpbC5jb20iLCJub21icmUiOiJEYXZpZCIsImVkYWQiOiIzMCJ9.m5QcTqrBsck7J4tHzgMqloswhbJuqDkG6gUBF900jvA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idmercancia\":28,\r\n    \"usuarioid\":18\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8084/api/mercancia/eliminarMercancia",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"mercancia",
+						"eliminarMercancia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar mercancia por nombre de usuario o por fecha de ingreso",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTY4OTQ0MTEsImV4cCI6MTY5NjkwMTYxMSwiaWR1c3VhcmlvIjoxOCwiZW1haWwiOiJkYXZpZEB0ZXN0bWFpbC5jb20iLCJub21icmUiOiJEYXZpZCIsImVkYWQiOiIzMCJ9.9LIgV91a-OEk6fUR5H1Qm7d0gcc4SUT2YXrWQCFG3K0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"\",\r\n    \"fecha_ingreso\":\"2023-10-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8084/api/mercancia/consultaMercancia",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"mercancia",
+						"consultaMercancia"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
