@@ -1,5 +1,6 @@
 package com.web.automotriz;
 
+import com.web.automotriz.filters.AuthFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -25,6 +26,15 @@ public class AutomotrizApplication {
 		source.registerCorsConfiguration("/**", config);
 		registrationBean.setFilter(new CorsFilter(source));
 		registrationBean.setOrder(0);
+		return registrationBean;
+	}
+
+	@Bean
+	public FilterRegistrationBean<AuthFilter> filterRegistrationBean() {
+		FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
+		AuthFilter authFilter = new AuthFilter();
+		registrationBean.setFilter(authFilter);
+		registrationBean.addUrlPatterns("/api/mercancia/*");
 		return registrationBean;
 	}
 
